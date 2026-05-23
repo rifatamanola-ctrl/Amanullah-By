@@ -1,0 +1,58 @@
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+import os
+
+# Initialize Console
+console = Console()
+
+def display_header():
+    console.clear()
+    banner = """
+    ██████╗ ███████╗ ██████╗ ██████╗ ██╗   ██╗███████╗██████╗ 
+    ██╔══██╗██╔════╝██╔════╝██╔═══██╗██║   ██║██╔════╝██╔══██╗
+    ██████╔╝█████╗  ██║     ██║   ██║██║   ██║█████╗  ██████╔╝
+    ██╔══██╗██╔══╝  ██║     ██║   ██║██║   ██║██╔══╝  ██╔══██╗
+    ██║  ██║███████╗╚██████╗╚██████╔╝╚██████╔╝███████╗██║  ██║
+    ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝
+    """
+    console.print(f"[bold cyan]{banner}[/bold cyan]")
+    console.print(Panel("GHOST-SHELL V1.0 | CROSS-PLATFORM SECURITY FRAMEWORK", style="bold yellow"))
+
+def main_menu():
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("OPTION", style="dim", width=10)
+    table.add_column("COMMAND NAME", width=30)
+    table.add_column("DESCRIPTION", width=40)
+    
+    table.add_row("1", "NETWORK SCAN", "Detect active devices and ports")
+    table.add_row("2", "URL ANALYZER", "Check link reputation and safety")
+    table.add_row("3", "SYSTEM STATUS", "Display current machine statistics")
+    table.add_row("4", "EXIT", "Terminate the framework")
+    
+    console.print(table)
+
+def run():
+    while True:
+        display_header()
+        main_menu()
+        choice = console.input("[bold green]root@ghost-shell:~# [/bold green]")
+        
+        if choice == '1':
+            target = console.input("[yellow]Enter target IP: [/yellow]")
+            console.print("[blue]Scanning started...[/blue]")
+            os.system(f"nmap -F {target}")
+        elif choice == '2':
+            url = console.input("[yellow]Enter URL: [/yellow]")
+            console.print(f"[blue]Analyzing {url}...[/blue]")
+            # API logic will be added here
+        elif choice == '3':
+            os.system("top -n 1")
+        elif choice == '4':
+            console.print("[bold red]Shutting down...[/bold red]")
+            break
+        else:
+            console.print("[bold red]Invalid selection![/bold red]")
+
+if __name__ == "__main__":
+    run()
